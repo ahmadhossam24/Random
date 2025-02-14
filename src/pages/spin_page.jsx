@@ -1,13 +1,13 @@
-import React ,{useContext}from "react";
-import SpinContext from "../context/spin_context";
-import SpinButton from "../components/button";
+import React from "react";
+import DataTableComponent from './../components/table';
+import SpinGame from "../components/spins";
 
 function SpinPage() {
-  const { tableData, saveTableData, spinResults, startSpin, isSpinning } = useContext(SpinContext);
 
   return (
-    <div>
-      <SpinButton></SpinButton>
+    <div className="body">
+      <DataTableComponent/>
+      <SpinGame/>
     </div>
   );
 }

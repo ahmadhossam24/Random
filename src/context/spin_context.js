@@ -13,8 +13,6 @@ export function SpinProvider({ children }) {
       col6:{c6r1:"",c6r2:"",c6r3:"",c6r4:"",c6r5:"",c6r6:""}
     }
   );
-  const [spinResults, setSpinResults] = useState(Array(6).fill(null));
-  const [isSpinning, setIsSpinning] = useState(false); 
   const [save_edit_state, setSave_edit_state] = useState("saved"); 
   const [C1SpinArr, setC1SpinArr] = useState([]); 
   const [C2SpinArr, setC2SpinArr] = useState([]); 
@@ -22,9 +20,7 @@ export function SpinProvider({ children }) {
   const [C4SpinArr, setC4SpinArr] = useState([]); 
   const [C5SpinArr, setC5SpinArr] = useState([]); 
   const [C6SpinArr, setC6SpinArr] = useState([]); 
-  const [resultsArr, setResultsArr] = useState([]); 
 
-  
   const saveTableData = (newData) => {
     setTableData(newData);
   };
@@ -55,21 +51,20 @@ export function SpinProvider({ children }) {
     setC5SpinArr(c5arrayFeed);
     setC6SpinArr(c6arrayFeed);
   };
-  
-  const startSpin = () => {
-    setIsSpinning(true);
-    // Simulate spinning and store random results
-    setTimeout(() => {
-      const newResults = tableData.map(
-        (row) => row[Math.floor(Math.random() * row.length)]
-      );
-      setSpinResults(newResults);
-      setIsSpinning(false);
-    }, 2000);
-  };
+
+  const emptySpins=()=>{
+    setC1SpinArr([]);
+    setC2SpinArr([]);
+    setC3SpinArr([]);
+    setC4SpinArr([]);
+    setC5SpinArr([]);
+    setC6SpinArr([]);
+  }
+
+
 
   return (
-    <SpinContext.Provider value={{ tableData, saveTableData, spinResults, startSpin, isSpinning,save_edit_state,setSave_edit_state,changeSaveEditState,changeTableData,reFillSpins }}>
+    <SpinContext.Provider value={{ tableData, saveTableData,save_edit_state,setSave_edit_state,changeSaveEditState,changeTableData,reFillSpins,emptySpins,C1SpinArr,C2SpinArr,C3SpinArr,C4SpinArr,C5SpinArr,C6SpinArr }}>
       {children}
     </SpinContext.Provider>
   );
