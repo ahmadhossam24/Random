@@ -63,7 +63,7 @@ const SpinGame = () => {
               textAlign: isArabic ? "right" : "left"
             }}
           >
-            {spin}
+          {spin}
           </motion.div>
         ))}
       </div>

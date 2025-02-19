@@ -101,7 +101,10 @@ body {
 
 .spin-box {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  width: 80px;
+  min-width: 80px;
+  max-width: 200px;
+  width: fit-content;
+  word-wrap: break-word;
   height: 80px;
   display: flex;
   align-items: center;
