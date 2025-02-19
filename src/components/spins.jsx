@@ -1,14 +1,26 @@
-import React, { useState,useContext } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { motion } from "framer-motion";
 import SpinContext from "../context/spin_context";
 
 const SpinGame = () => {
-  const { C1SpinArr,C2SpinArr,C3SpinArr,C4SpinArr,C5SpinArr,C6SpinArr } = useContext(SpinContext);
+  const { C1SpinArr,C2SpinArr,C3SpinArr,C4SpinArr,C5SpinArr,C6SpinArr,save_edit_state,isArabic } = useContext(SpinContext);
   const [currentSpins, setCurrentSpins] = useState(["?", "?", "?", "?", "?", "?"]);
   const [winners, setWinners] = useState([false, false, false, false, false, false]);
+  const [spinButtonPlaceholder, setspinButtonPlaceholder] = useState("Spin");
   const [isSpinning, setIsSpinning] = useState(false);
 
   const spinDuration = 3; // Animation time in seconds
+  
+  useEffect(() => {
+    if(save_edit_state==="editing"){
+      setspinButtonPlaceholder("Editing table...")
+    }else if(isSpinning){
+      setspinButtonPlaceholder("Spinning...") 
+    }else{
+      setspinButtonPlaceholder("Spin")
+    }
+    
+  }, [C1SpinArr,C2SpinArr,C3SpinArr,C4SpinArr,C5SpinArr,C6SpinArr,save_edit_state,isSpinning]); // This effect runs whenever spins changes
 
   // Function to spin and determine winners
   const handleSpin = () => {
@@ -46,6 +58,10 @@ const SpinGame = () => {
             className={`spin-box ${winners[index] ? "winner" : ""}`}
             animate={{ rotate: isSpinning ? 360 * 5 : 0 }}
             transition={{ duration: spinDuration, ease: "easeInOut" }}
+            style={{ 
+              direction: isArabic ? "rtl" : "ltr",
+              textAlign: isArabic ? "right" : "left"
+            }}
           >
             {spin}
           </motion.div>
@@ -56,10 +72,10 @@ const SpinGame = () => {
       <div className="spin-button-container">
         <button
           onClick={handleSpin}
-          disabled={isSpinning}
+          disabled={isSpinning||save_edit_state==="editing"}
           className="spin-button"
         >
-          {isSpinning ? "Spinning..." : "Spin"}
+          {spinButtonPlaceholder}
         </button>
       </div>
     </div>

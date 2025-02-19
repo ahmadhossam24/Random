@@ -20,6 +20,11 @@ export function SpinProvider({ children }) {
   const [C4SpinArr, setC4SpinArr] = useState([]); 
   const [C5SpinArr, setC5SpinArr] = useState([]); 
   const [C6SpinArr, setC6SpinArr] = useState([]); 
+  const [isArabic, setIsArabic] = useState(false);
+
+const toggleLanguage = () => {
+  setIsArabic(prev => !prev);
+};
 
   const saveTableData = (newData) => {
     setTableData(newData);
@@ -64,7 +69,7 @@ export function SpinProvider({ children }) {
 
 
   return (
-    <SpinContext.Provider value={{ tableData, saveTableData,save_edit_state,setSave_edit_state,changeSaveEditState,changeTableData,reFillSpins,emptySpins,C1SpinArr,C2SpinArr,C3SpinArr,C4SpinArr,C5SpinArr,C6SpinArr }}>
+    <SpinContext.Provider value={{ tableData, saveTableData,save_edit_state,setSave_edit_state,changeSaveEditState,changeTableData,reFillSpins,emptySpins,C1SpinArr,C2SpinArr,C3SpinArr,C4SpinArr,C5SpinArr,C6SpinArr, isArabic, toggleLanguage }}>
       {children}
     </SpinContext.Provider>
   );
