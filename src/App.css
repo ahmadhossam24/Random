@@ -159,6 +159,25 @@ body {
   cursor: not-allowed;
 }
 
+.prepare-new-table-button {
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 20px;
+  margin-bottom:20px;
+}
+
+.prepare-new-table-button:hover {
+  background-color: #0056b3;
+}
+
 /* Add these to App.css */
 
 /* Game Title */
@@ -168,6 +187,20 @@ body {
   margin: 2rem 0;
   font-weight: bold;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.prepare-title {
+  font-size: 3rem;
+  text-align: center;
+  margin: 2rem 0;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.navButtons{
+  width: fit-content;
+  display: flex;
+  gap: 20px;
 }
 
 /* Language Button */
@@ -186,6 +219,21 @@ body {
   background-color: #218838;
 }
 
+.go-prepare-button{
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+  transition: all 0.3s;
+}
+
+.go-prepare-button:hover {
+  background-color: #218838;
+}
+
 /* Responsive Design */
 @media (max-width: 1200px) {
   .data-table-container {
@@ -195,6 +243,9 @@ body {
 
 @media (max-width: 768px) {
   .game-title {
+    font-size: 2rem;
+  }
+  .prepre-title {
     font-size: 2rem;
   }
   
@@ -213,6 +264,9 @@ body {
 
 @media (max-width: 480px) {
   .game-title {
+    font-size: 1.5rem;
+  }
+  .prepre-title {
     font-size: 1.5rem;
   }
   
