@@ -1,7 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import SpinContext from "../context/spin_context";
+import { useNavigate } from "react-router-dom";
 
 function DataTableComponent() {
+  const navigate = useNavigate();
   const { save_edit_state, changeSaveEditState, changeTableData, reFillSpins, emptySpins,isArabic  } = useContext(SpinContext);
   const [newTableDataObj, setNewTableDataObj] = useState({
     col1: { c1r1: "", c1r2: "", c1r3: "", c1r4: "", c1r5: "", c1r6: "" },
@@ -11,6 +13,8 @@ function DataTableComponent() {
     col5: { c5r1: "", c5r2: "", c5r3: "", c5r4: "", c5r5: "", c5r6: "" },
     col6: { c6r1: "", c6r2: "", c6r3: "", c6r4: "", c6r5: "", c6r6: "" }
   });
+  const [savedTables, setSavedTables] = useState([]);
+  const [selectedTable, setSelectedTable] = useState(null);
 
   useEffect(() => {
     if (save_edit_state === "saved") {
@@ -31,6 +35,29 @@ function DataTableComponent() {
       }
     }));
   };
+  
+  function handleClick() {
+    navigate("/prepare-table");
+  }
+
+  // Load saved tables from localStorage on mount
+  useEffect(() => {
+    const tables = JSON.parse(localStorage.getItem("spin_tables_db->zabuv")) || [];
+    setSavedTables(tables);
+  }, []);
+
+  // Handle select change
+  const handleSelectChange = (e) => {
+    const selectedTitle = e.target.value;
+    const table = savedTables.find(t => t.title === selectedTitle);
+    
+    if (table) {
+      setSelectedTable(table.id);
+      setNewTableDataObj(table.data);
+      changeTableData(table.data);
+      reFillSpins(table.data);
+    }
+  };
 
   return (
     <>
@@ -42,6 +69,23 @@ function DataTableComponent() {
       >
         {save_edit_state === "editing" ? "Save" : "Edit"}
       </button>
+      <span className="prepare_control_span">
+      <select 
+        className="import-data-select" 
+        onChange={handleSelectChange}
+        value={selectedTable?.title || ""}
+      >
+        <option value="">Select a table</option>
+        {savedTables.map((table) => (
+          <option key={table.id} value={table.title}>
+            {table.title}
+          </option>
+        ))}
+      </select>
+        <button className="go-prepare-button" onClick={handleClick}>
+          Prepare Data
+        </button>     
+      </span>
       <div className="data-table-container">
         {Object.keys(newTableDataObj).map((col) => (
           <div key={col} className={`data-table-column ${col}`}>
