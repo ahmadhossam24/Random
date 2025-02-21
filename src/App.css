@@ -323,6 +323,10 @@ body {
   .data-table-container {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .prepare-inside-data-table-container{
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
@@ -335,6 +339,12 @@ body {
   
   .data-table-container {
     grid-template-columns: repeat(2, 1fr);
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .prepare-inside-data-table-container{
+    grid-template-columns: repeat(3, 1fr);
     padding: 10px;
     gap: 10px;
   }
@@ -355,6 +365,10 @@ body {
   }
   
   .data-table-container {
+    grid-template-columns: 1fr;
+  }
+
+  .prepare-inside-data-table-container {
     grid-template-columns: 1fr;
   }
   

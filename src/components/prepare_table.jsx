@@ -3,7 +3,6 @@ import SpinContext from "../context/spin_context";
 
 function PrepareDataTableComponent({ id, initialTitle, initialData, onSave, onDelete }) {
   const { isArabic  } = useContext(SpinContext);
-
   const [saveState, setSaveState] = useState("editing");
   const [title, setTitle] = useState(initialTitle);
   const [tableData, setTableData] = useState(initialData);
