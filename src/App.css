@@ -1,416 +1,251 @@
-/* Apply a subtle shadow to all elements */
+/* Global reset */
 * {
   box-sizing: border-box;
-  margin: 0px;
-  padding: 0px;
-}
-/* Global Styles for the Whole Page */
-body {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f2f5; /* A light neutral background */
-  color: #333;
 }
 
-.table-control-button {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 20px;
-  margin-left: 10px;
-  margin-bottom: 10px;
+.carousel-page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: sans-serif;
+  /* Background */
+  /* Content Layout */
 }
-
-.table-control-button:hover {
-  background-color: #0056b3;
-}
-
-.table-edit-save-control-button{
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-}
-
-.table-edit-save-control-button:hover{
-  background-color: #0056b3;
-}
-
-/* Container for the Table */
-.data-table-container {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
-  padding: 20px;
-  width:fit-content;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+.carousel-page .background {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  z-index: -2;
 }
-
-.prepare-inside-data-table-container{
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 15px;
-  padding: 20px;
-  width:fit-content;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+.carousel-page .background .bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  margin-bottom: 20px;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
 }
-
-.prepare-data-table-container {
-  display: flex;
-  justify-content: center;
-  padding: 20px;
-  width:fit-content;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+.carousel-page .background .overlay {
+  position: absolute;
   width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
-
-/* Each Column in the Table */
-.data-table-column {
+.carousel-page .background .gradient-overlay {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 50%; /* Covers bottom half of screen */
+  background: linear-gradient(to top, #edebe7 0%, #edebe7 50%, rgba(237, 235, 231, 0) 100%);
+  z-index: 2;
+}
+.carousel-page .content {
+  position: relative;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  /* Sections: Left and Image Carousel aligned at the bottom */
+  /* Pagination Balls */
 }
-
-/* Inputs Styling (make them fill their column nicely) */
-.data-table-column input {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 1rem;
-  color: black;
-}
-
-/* Column-specific Colors (matching your spin colors) */
-.data-table-column.col1 input {
-  background-color: #ff5733; /* Red */
-}
-.data-table-column.col2 input {
-  background-color: #33c3ff; /* Blue */
-}
-.data-table-column.col3 input {
-  background-color: #33ff57; /* Green */
-}
-.data-table-column.col4 input {
-  background-color: #f4d03f; /* Yellow */
-}
-.data-table-column.col5 input {
-  background-color: #9b59b6; /* Purple */
-}
-.data-table-column.col6 input {
-  background-color: #ff8c00; /* Orange */
-}
-
-/* Optional: Input Focus Effect */
-.data-table-column input:focus {
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-.spin-container {
-  width: 100%;
+.carousel-page .content .sections {
   display: flex;
-  justify-content: space-evenly;
-  padding: 20px;
+  flex: 1;
+  align-items: flex-end;
+  /* Image Carousel */
 }
-
-.spin-box {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  min-width: 80px;
-  max-width: 200px;
-  width: fit-content;
-  word-wrap: break-word;
-  height: 80px;
+.carousel-page .content .sections .left-section {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
+  flex-direction: column;
+  align-items: flex-end;
   font-weight: bold;
-  border-radius: 10px;
-  transition: transform 0.5s ease-in-out;
+  width: 35.7%;
+  padding-right: 20px;
+  padding-left: 45px;
+  padding-bottom: 9px; /* bottom padding */
+  direction: rtl;
+  /* Keyframe Animations for Text */
 }
-
-/* Colors for each spin */
-.spin-box:nth-child(1) { background-color: #ff5733; } /* Red */
-.spin-box:nth-child(2) { background-color: #33c3ff; } /* Blue */
-.spin-box:nth-child(3) { background-color: #33ff57; } /* Green */
-.spin-box:nth-child(4) { background-color: #f4d03f; } /* Yellow */
-.spin-box:nth-child(5) { background-color: #9b59b6; } /* Purple */
-.spin-box:nth-child(6) { background-color: #ff8c00; } /* Orange */
-
-/* Winner effect */
-.winner {
-  background-color: gold !important;
-  transform: scale(1.2);
-  box-shadow: 0 0 15px gold;
-}
-
-.spin-button-container{
+.carousel-page .content .sections .left-section .text-content {
   width: 100%;
-  display: flex;
-  justify-content: center;
 }
-
-.spin-button {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
+.carousel-page .content .sections .left-section .text-content .title {
+  font-size: 5.6rem;
+  color: #000000;
+}
+.carousel-page .content .sections .left-section .text-content .subtitle {
   font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 20px;
-  margin-bottom: 80px;
-}
-
-.spin-button:hover {
-  background-color: #0056b3;
-}
-
-.spin-button:disabled {
-  background-color: gray;
-  cursor: not-allowed;
-}
-
-.prepare-new-table-button {
-  width: 100%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 20px;
-  margin-bottom:20px;
-}
-
-.prepare-new-table-button:hover {
-  background-color: #0056b3;
-}
-
-.delete-table-button{
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: #f44336;
-  color: white;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s;
   margin-top: 10px;
-  margin-bottom: 10px;
 }
-
-.delete-table-button:hover {
-  background-color: #d32f2f;
+.carousel-page .content .sections .left-section .text-content .paragraph {
+  margin-top: 10px;
+  margin-right: 20px;
 }
-
-.table-title-input {
-  font-size: 1.2rem;
-  padding: 5px 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  flex-grow: 1;
-  margin-right: 10px;
+.carousel-page .content .sections .left-section .text-content .list-items {
+  margin-top: 10px;
+  margin-right: 35px;
 }
-
-/* Add these to App.css */
-
-/* Game Title */
-.game-title {
-  font-size: 3rem;
-  text-align: center;
-  margin: 2rem 0;
+.carousel-page .content .sections .left-section .text-content ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+.carousel-page .content .sections .left-section .text-content.slide-out {
+  animation: slideUpOut 0.5s forwards;
+}
+.carousel-page .content .sections .left-section .text-content.slide-in {
+  animation: slideUpIn 0.5s forwards;
+}
+.carousel-page .content .sections .left-section .details-button {
   font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  display: block;
+  margin: 20px 0;
+  width: 40%;
+  background-color: #877361;
+  color: #0d0807;
+  border: none;
+  padding: 2px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 2.2rem;
+  border-radius: 11px;
 }
-
-.prepare-title {
-  font-size: 3rem;
-  text-align: center;
-  margin: 2rem 0;
-  font-weight: bold;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+.carousel-page .content .sections .left-section .details-button:hover {
+  background-color: #695a4c;
 }
-
-.navButtons{
-  width: fit-content;
+@keyframes slideUpOut {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+@keyframes slideUpIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.carousel-page .content .sections .image-carousel {
+  width: 64.2%;
+  padding-bottom: 20px; /* bottom padding */
+  overflow-x: clip;
+  position: relative;
+}
+.carousel-page .content .sections .image-carousel .carousel-track {
+  width: 2600px;
   display: flex;
-  gap: 20px;
+  transition: transform 0.5s ease;
 }
-
-/* Language Button */
-.language-button {
-  background-color: #28a745;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
+.carousel-page .content .sections .image-carousel .carousel-track.no-transition {
+  transition: none; /* Disable transitions */
+}
+.carousel-page .content .sections .image-carousel .carousel-item {
+  width: 250px;
+  height: 300px;
+  margin: 0 50px;
   cursor: pointer;
-  margin: 10px;
-  transition: all 0.3s;
+  position: relative;
+  transition: transform 0.5s ease;
+  border-radius: 12px;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.3s ease;
+  transform-origin: bottom;
+  border: 0px solid #fdfcff;
 }
-
-.language-button:hover {
-  background-color: #218838;
+.carousel-page .content .sections .image-carousel .carousel-item img {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: block;
 }
-
-.go-prepare-button{
-  background-color: #28a745;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 5px;
+.carousel-page .content .sections .image-carousel .carousel-item.chosen {
+  transform-origin: bottom;
+  transform: scaleY(1.19) scaleX(1.1);
+  box-shadow: 0 0 0 4px #fdfcff;
+  border-radius: 12px;
+}
+.carousel-page .content .sections .image-carousel .carousel-item.scaling {
+  transform: scaleY(1.19) scaleX(1.1);
+  z-index: 2; /* Ensure it stays on top during transition */
+  border: 4px solid #fdfcff;
+}
+.carousel-page .content .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 7px;
+}
+.carousel-page .content .pagination .ball {
+  width: 15px;
+  height: 15px;
+  background-color: #b9ada4;
+  border-radius: 50%;
+  margin: 0 5px;
   cursor: pointer;
-  margin: 10px;
-  transition: all 0.3s;
-  margin-bottom: 0px;
-  margin-left: 1%;
+  transition: background-color 0.3s ease;
+}
+.carousel-page .content .pagination .ball.active {
+  background-color: #8b7065;
 }
 
-.go-prepare-button:hover {
-  background-color: #218838;
-}
-
-.import-data-select{
-  background-color: #28a745;
-  color: white;
-  padding: 7.6px 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 10px;
-  transition: all 0.3s;
-  margin-bottom: 0px;
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .data-table-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .prepare-inside-data-table-container{
-    grid-template-columns: repeat(3, 1fr);
+/* Media query for screen width > 1600px */
+@media screen and (min-width: 1600px) {
+  .carousel-page .content .sections .image-carousel {
+    width: 1021px; /* Fixed width */
   }
 }
-
-@media (max-width: 768px) {
-  .game-title {
-    font-size: 2rem;
-  }
-  .prepre-title {
-    font-size: 2rem;
-  }
-  
-  .data-table-container {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 10px;
-    gap: 10px;
-  }
-
-  .prepare-inside-data-table-container{
-    grid-template-columns: repeat(3, 1fr);
-    padding: 10px;
-    gap: 10px;
-  }
-  
-  .spin-box {
-    width: 60px;
-    height: 60px;
-    font-size: 1rem;
+/* Media query for screen width 1280px */
+@media screen and (max-width: 1280px) {
+  .carousel-page .content .sections .image-carousel .carousel-item {
+    margin: 0 35px; /* Adjusted margin */
   }
 }
-
-@media (max-width: 480px) {
-  .game-title {
-    font-size: 1.5rem;
+/* Media query for screen width 1170px */
+@media screen and (max-width: 1170px) {
+  .carousel-page .content .sections .image-carousel .carousel-item {
+    margin: 0 18px; /* Adjusted margin */
   }
-  .prepre-title {
-    font-size: 1.5rem;
+}
+/* Media query for screen width 1010px */
+@media screen and (max-width: 1010px) {
+  .carousel-page .content .sections .image-carousel .carousel-item {
+    width: 220px; /* Adjusted item width */
   }
-  
-  .data-table-container {
-    grid-template-columns: 1fr;
+}
+/* Media query for screen width 900px */
+@media screen and (max-width: 900px) {
+  .image-carousel {
+    display: none;
   }
-
-  .prepare-inside-data-table-container {
-    grid-template-columns: 1fr;
-  }
-  
-  .data-table-column {
-    flex-direction: row;
-    flex-wrap: wrap;
+  .sections {
     justify-content: center;
   }
-  
-  .data-table-column input {
-    width: 45%;
-    margin: 5px;
+  .carousel-page .content .sections .left-section {
+    width: 70%;
+    align-items: center;
+    padding-left: 20px;
   }
-  
-  .spin-container {
-    flex-wrap: wrap;
+  .carousel-page .content .pagination .ball {
+    width: 20px;
+    height: 20px;
+    margin: 0 8px;
   }
-  
-  .spin-box {
-    width: 50px;
-    height: 50px;
-    margin: 5px;
-  }
-}
-
-/* Add RTL support */
-[dir="rtl"] .data-table-column input {
-  text-align: right;
-}
-
-/* Adjust controls layout */
-.controls {
-  display: flex;
-  justify-content: end;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.prepare_control_span{
-  width: 47.27%;
-  display: flex;
-  justify-content: end;
-  align-items: end;
-}
+}/*# sourceMappingURL=App.css.map */
